@@ -17,7 +17,7 @@ export const fontlist = {
 
 export const fontlistmonogram = {
     1: "Free-monogram",
-    2: "Themadi",
+    2: "DMSerifDisplay",
     // 2: "DUMB",
     3: "Rodge-Regular",
 };

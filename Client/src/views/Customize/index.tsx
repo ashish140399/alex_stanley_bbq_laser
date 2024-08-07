@@ -542,7 +542,7 @@ const Customize: React.FC<Props> = () => {
                         console.error("Font not loaded or not found.");
                         return;
                     }
-                    if (customizeInfo["monogram"].font === 2) {
+                    if (customizeInfo["monogram"].font === 1) {
                         // charPathData = loadedFonts[
                         //     fontlistmonogramlcr[index + 1]
                         // ]
@@ -591,52 +591,51 @@ const Customize: React.FC<Props> = () => {
 
                         charPath.set({
                             width: 50,
-                            left: 30 + index * 20,
+                            left: 10 + index * 40,
                             top: 0,
                         });
                     } else if (customizeInfo["monogram"].font === 3) {
                         charPathData = loadedFonts[
-                            fontlistmonogram[customizeInfo["monogram"].font]
+                            fontlistmonogramlcr[index + 1]
                         ]
-                            .getPath(char, 0, 0, 120)
+                            .getPath(char, 0, 0, 88)
                             .toPathData();
 
                         let charPath = new fabric.Path(charPathData, {
-                            fill: "#A5A5A5",
+                            fill: "#505451",
                         });
                         canvas.add(charPath);
                         canvas.centerObject(charPath);
 
                         charPath.set({
-                            width: 50,
-                            left: index === 0 ? 25 : 75,
-                            top: 15,
+                            left: 38 + index * 25,
+                            top: index === 1 ? 10 : 13,
                         });
-                        if (index === 0) {
-                            const customLetter = "I";
-                            const selectedFont =
-                                fontlistmonogram[customizeInfo.monogram.font];
+                        // if (index === 0) {
+                        //     const customLetter = "I";
+                        //     const selectedFont =
+                        //         fontlistmonogram[customizeInfo.monogram.font];
 
-                            // Get path data for the custom letter 'I'
-                            const pathData = loadedFonts[selectedFont]
-                                .getPath(customLetter, 0, 0, 150)
-                                .toPathData();
+                        //     // Get path data for the custom letter 'I'
+                        //     const pathData = loadedFonts[selectedFont]
+                        //         .getPath(customLetter, 0, 0, 150)
+                        //         .toPathData();
 
-                            // Create a path object
-                            const charPath = new fabric.Path(pathData, {
-                                fill: "#A5A5A5",
-                            });
+                        //     // Create a path object
+                        //     const charPath = new fabric.Path(pathData, {
+                        //         fill: "#A5A5A5",
+                        //     });
 
-                            // Adjust the positioning based on your requirements
-                            charPath.set({
-                                width: 50,
-                                left: 50,
-                                top: 7,
-                            });
+                        //     // Adjust the positioning based on your requirements
+                        //     charPath.set({
+                        //         width: 50,
+                        //         left: 50,
+                        //         top: 7,
+                        //     });
 
-                            // Add the path object to the canvas
-                            canvas.add(charPath);
-                        }
+                        //     // Add the path object to the canvas
+                        //     canvas.add(charPath);
+                        // }
                     }
                 });
             }
@@ -918,7 +917,7 @@ const Customize: React.FC<Props> = () => {
                                     }
                                     maxLength={
                                         customizeInfo["monogram"].font === 3
-                                            ? 2
+                                            ? 3
                                             : 3
                                     }
                                 />
@@ -981,14 +980,13 @@ const Customize: React.FC<Props> = () => {
                                                 monogram: {
                                                     ...prevState.monogram,
                                                     font: 3,
-                                                    value: "",
                                                 },
                                             }))
                                         }
                                     >
                                         <span className="chr1">A</span>
-                                        <span className="chr2">I</span>
-                                        <span className="chr3">B</span>
+                                        <span className="chr2">B</span>
+                                        <span className="chr3">C</span>
                                     </div>
                                 </div>
                             </Monogrambox>
@@ -1215,14 +1213,18 @@ const Monogrambox = styled(Textbox)`
             letter-spacing: 2px;
         }
         &.box3 {
-            font-size: 9vh !important;
-            letter-spacing: 2px;
+            font-size: 70px !important;
             span {
-                margin-top: -27px;
+                margin: 0 2px;
+            }
+            .chr1 {
+                font-family: MONOGRAMOS_left;
             }
             .chr2 {
-                margin-top: -31px;
-                font-size: 11vh !important;
+                font-family: MONOGRAMOS_center;
+            }
+            .chr3 {
+                font-family: MONOGRAMOS_right;
             }
         }
         &.active {
