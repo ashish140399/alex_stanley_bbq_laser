@@ -1354,23 +1354,21 @@ const TopWrapper = styled.div`
     justify-content: Center;
     top: 14vh;
     position: relative;
-    // width: fit-content;
-    // &.graphiccustomise {
-    //     top: 150px;
-    // }
+
     &.typeiceflow {
+        top: 8vh !important;
         .canvas-container {
             top: 0px !important;
         }
     }
     &.type30oz {
         left: 60px !important;
-        // top: -41px !important;
+        top: 8vh !important;
     }
     &.type40oz {
         left: 60px !important;
         top: 7vh !important;
-        .graphiccustomise {
+        &.graphiccustomise {
             top: 75px !important;
         }
     }
@@ -1450,10 +1448,19 @@ const LayoutCenterStyled = styled(LayoutCenter)`
             &.cp30oz {
                 top: 20px;
             }
+            &.cp40oz {
+                top: 20px;
+                &.graphic {
+                    top: 28px;
+                }
+            }
 
             &.cpiceflow {
                 top: 25px !important;
                 left: 175px;
+                &.monogram {
+                    top: 60px !important;
+                }
             }
             &.graphic {
                 height: 180px;
