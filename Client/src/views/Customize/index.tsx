@@ -63,7 +63,7 @@ const Customize: React.FC<Props> = () => {
 
     const [graphicImageURL, setGraphicImageURL] = useState("");
     const fontNames = [
-        "HelveticaNeue.ttf",
+        "LibreBaskerville-Regular.ttf",
         "DancingScript.ttf",
         "DMSerifDisplay.ttf",
         "Graduate.ttf",
@@ -79,7 +79,7 @@ const Customize: React.FC<Props> = () => {
         "Free-monogram.otf",
     ];
     const fontFamilies = [
-        "HelveticaNeue",
+        "LibreBaskerville-Regular",
         "DancingScript",
         "DMSerifDisplay",
         "Graduate",
@@ -96,7 +96,8 @@ const Customize: React.FC<Props> = () => {
     ];
     useEffect(() => {
         // const fontURL = "path_to_your_fonts_directory";  // Please replace with your actual fonts directory path
-        var fontURL = "https://familyindustriesapps.com/Servers/Sleigh/fonts";
+        var fontURL =
+            "https://familyindustriesapps.com/Servers/Stanley_bbq_laser/fonts";
         const promises = fontNames.map((fontName, index) => {
             // console.log(fontName, index);
             return new Promise((resolve) => {
@@ -541,7 +542,7 @@ const Customize: React.FC<Props> = () => {
                         console.error("Font not loaded or not found.");
                         return;
                     }
-                    if (customizeInfo["monogram"].font === 1) {
+                    if (customizeInfo["monogram"].font === 2) {
                         // charPathData = loadedFonts[
                         //     fontlistmonogramlcr[index + 1]
                         // ]
@@ -1004,7 +1005,7 @@ const Customize: React.FC<Props> = () => {
                                         {/* 3, 4, 5, 6, 7, 8, 9, 10 */}
                                         {[
                                             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                                            12, 13, 14, 15, 16,
+                                            12,
                                         ].map((item, index) => {
                                             return (
                                                 <div

@@ -8,7 +8,7 @@ export const productname = {
     // 7: `IceFlow Flip Straw Tumbler - 30 oz`,
 };
 export const fontlist = {
-    1: "HelveticaNeue",
+    1: "LibreBaskerville-Regular",
     2: "OswaldM",
     3: "RobotoSlab",
     4: "Graduate",
