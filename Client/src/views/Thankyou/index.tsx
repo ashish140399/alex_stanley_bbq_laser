@@ -38,11 +38,11 @@ const Thankyou: React.FC<Props> = () => {
                     />
                 </div> */}
 
-                <img
+                {/* <img
                     src="images/common/text_thankyou.png"
                     className="thank_you"
                     alt=""
-                />
+                /> */}
                 {/* <img
                     src="images/common/logo_front.png"
                     className="logo"
@@ -53,11 +53,9 @@ const Thankyou: React.FC<Props> = () => {
     );
 };
 const Layout = styled.div`
-    background: linear-gradient(to bottom, #fff, #36acd3);
-    border: 15px solid #ed2b2c;
-    box-sizing: border-box;
-    background-size: 100% 100%;
-    background-position: center center;
+    background: url("./images/common/thankyou.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     // align-items: center;
     flex-direction: column;

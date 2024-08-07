@@ -129,10 +129,11 @@ const saveData = async (req, res, query, values, log) => {
 // POST route to save SVG data
 app.post("/api/savesvg", (req, res) => {
     const data = req.body;
-    const { canvasuri, userDetails, timeDiff, itemname, itemdetails } = data;
+    const { canvasuri, userDetails, timeDiff, itemname, customizeInfo } = data;
     const parseduserDetails = JSON.parse(userDetails);
-    const parsedItemDetails = JSON.parse(itemdetails);
-    console.log(parsedItemDetails);
+    const parsedcustomizeInfo = JSON.parse(customizeInfo);
+    const parseditemname = JSON.parse(itemname);
+    console.log(parsedcustomizeInfo);
     const filePath =
         __dirname + `/canvas/${parseduserDetails.firstName + Date.now()}.svg`;
     console.log("Data received for", parseduserDetails.firstName);
@@ -146,10 +147,11 @@ app.post("/api/savesvg", (req, res) => {
                 "https://familyindustriesapps.com"
             );
 
-            const query1 = `INSERT INTO user_data (userdetails, itemname, canvasuri, usagetime, updationtime) VALUES (?, ?, ?, ?, ?)`;
+            const query1 = `INSERT INTO user_data (userdetails, itemname,customizeInfo, canvasuri, usagetime, updationtime) VALUES (?, ?, ?, ?, ?,?)`;
             const values1 = [
                 userDetails,
                 itemname,
+                customizeInfo,
                 respath,
                 timeDiff,
                 new Date(),
@@ -157,8 +159,8 @@ app.post("/api/savesvg", (req, res) => {
             const log1 = "Data Inserted successfully !!";
 
             await saveData(req, res, query1, values1, log1);
-            const query2 = `UPDATE inventory_list SET used_count = used_count + 1 WHERE img_name = ?`;
-            const values2 = [itemname];
+            const query2 = `UPDATE inventory_list SET used_count = used_count + 1 WHERE img_name = ? and item_name=?`;
+            const values2 = [parseditemname.type, parseditemname.color];
             const log2 = "Inventory used count updated";
             await saveData(req, res, query2, values2, log2);
             if (parsedItemDetails.selectedtype === "graphic") {

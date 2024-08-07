@@ -8,6 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { createGlobalStyle } from "styled-components";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import { TRUE } from "sass";
@@ -125,68 +128,41 @@ const downloadit = (imageUrl) => {
             console.error("Error downloading image:", error);
         });
 };
-const sendSMS = async (res) => {
-    const messagetext = `${
-        res.userdetails?.firstName + " " + res.userdetails?.lastName
-    }, your item is ready for pick-up. Order #${res.id}`;
-    const phoneNumber = res.userdetails.phonenumber;
-    const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
-
-    try {
-        const response = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/send-sms`,
-            {
-                to: `+1${formattedPhoneNumber}`,
-                from: "+15104058591",
-                body: messagetext,
-                id: res.id,
-            }
-        );
-
-        const result = response.data;
-        console.log(result);
-        toast.success(
-            `Message sent to ${
-                res.userdetails?.firstName + " " + res.userdetails?.lastName
-            } for OrderId #${res.id}`,
-            {
-                position: "top-right",
-                autoClose: 2000, // Close the toast after 3000ms (3 seconds)
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                style: {
-                    fontSize: "15px",
-                    color: "rgba(0,0,0,0.7)",
-                },
-            }
-        );
-    } catch (error) {
-        toast.error(
-            `Message sending failed to ${
-                res.userdetails?.firstName + " " + res.userdetails?.lastName
-            } for OrderId #${res.id}`,
-            {
-                position: "top-right",
-                autoClose: 2000, // Close the toast after 3000ms (3 seconds)
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                style: {
-                    fontSize: "15px",
-                    color: "rgba(0,0,0,0.7)",
-                },
-            }
-        );
-        console.error(error);
-    }
-};
 
 const InnerTableRow = ({ res }) => {
     const [isreceiptDownloading, setIsreceiptDownloading] =
         React.useState(false);
+    const [status, setStatus] = React.useState<string>(res.status);
+    const handleAcceptChange = (event: SelectChangeEvent) => {
+        setStatus(String(event.target.value));
+        axios
+            .post(`${process.env.REACT_APP_API_URL}/api/savestatus`, {
+                id: res.id,
+                type: "status",
+                status: String(event.target.value),
+            })
+            .then((response) => {
+                console.log(response.data);
+                toast.success(
+                    `Status updated for ${res.userdetails?.firstName} for OrderId #${res.id}`,
+                    {
+                        position: "top-right",
+                        autoClose: 2000, // Close the toast after 3000ms (3 seconds)
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        style: {
+                            fontSize: "15px",
+                            color: "rgba(0,0,0,0.7)",
+                        },
+                    }
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
     const canvasRef = React.useRef(null);
     const generatePrint = async () => {
         await document.fonts.load("16px Flama-Bold").then(async () => {
@@ -317,13 +293,7 @@ const InnerTableRow = ({ res }) => {
         // Create a link element and trigger the download
         const link = document.createElement("a");
         link.href = dataUrl;
-        link.download =
-            "#" +
-            res.id +
-            " " +
-            res.userdetails.firstName +
-            " " +
-            res.userdetails.lastName;
+        link.download = "#" + res.id + " " + res.userdetails.firstName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -342,12 +312,10 @@ const InnerTableRow = ({ res }) => {
             <TableCell component="th" scope="row">
                 {res.id}
             </TableCell>
+            <TableCell align="center">{res.userdetails.firstName}</TableCell>
             <TableCell align="center">
-                {res.userdetails.firstName + " " + res.userdetails.lastName}
+                {res.itemname.type} - {res.itemname.color}
             </TableCell>
-
-            <TableCell align="center">{res.userdetails.phonenumber}</TableCell>
-            <TableCell align="center">{res.item_name}</TableCell>
             <TableCell align="center">
                 <SvgDisplayComponent imageUrl={res.canvasuri} />
             </TableCell>
@@ -381,16 +349,20 @@ const InnerTableRow = ({ res }) => {
                     )}
                 </Button>
             </TableCell>
-            <TableCell align="right">
-                <Button
-                    variant="contained"
-                    // disabled={!res.canvasuri.endsWith(".svg")}
-                    onClick={() => sendSMS(res)}
-                >
-                    {res.texttouser?.count > 0
-                        ? "Re-Send TEXT !!"
-                        : "Send TEXT !!"}
-                </Button>
+            <TableCell align="center">
+                <FormControl fullWidth>
+                    <Select
+                        labelId="statusSelect"
+                        id="statusSelect"
+                        className={status}
+                        defaultValue={status}
+                        value={status}
+                        onChange={handleAcceptChange}
+                    >
+                        <MenuItem value={"pending"}>Pending</MenuItem>
+                        <MenuItem value={"complete"}>Complete</MenuItem>
+                    </Select>
+                </FormControl>
             </TableCell>
         </TableRow>
     ) : null;
@@ -438,7 +410,7 @@ const Admin: React.FC<Props> = () => {
                 <>
                     <Layout>
                         <div className="heading">
-                            <h1>Admin Panel</h1>Sleigh
+                            <h1>Admin Panel</h1>Laser
                         </div>
 
                         <TableContainer component={Paper}>
@@ -451,9 +423,6 @@ const Admin: React.FC<Props> = () => {
                                         <TableCell>#</TableCell>
                                         <TableCell align="center">
                                             Name
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            Phone No.
                                         </TableCell>
 
                                         <TableCell align="center">

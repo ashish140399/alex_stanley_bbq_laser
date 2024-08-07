@@ -306,11 +306,18 @@ const Customize: React.FC<Props> = () => {
             selectedtype: customizeInfo.selected,
             selectedgraphic: customizeInfo["graphic"].value,
         };
-        console.log("itemdetails", itemdetails);
+        console.log("itemdetails", {
+            userDetails: JSON.stringify(userDetails),
+            itemname: JSON.stringify(selectedItem),
+            // graphicname: customizeInfo["graphic"].value.toString(),
+            canvasuri: modifiedSVG,
+            timeDiff: timeDifference,
+            customizeInfo: JSON.stringify(customizeInfo),
+        });
         axios
             .post(`${process.env.REACT_APP_API_URL}/api/savesvg`, {
                 userDetails: JSON.stringify(userDetails),
-                itemname: selectedItem,
+                itemname: JSON.stringify(selectedItem),
                 // graphicname: customizeInfo["graphic"].value.toString(),
                 canvasuri: modifiedSVG,
                 timeDiff: timeDifference,
