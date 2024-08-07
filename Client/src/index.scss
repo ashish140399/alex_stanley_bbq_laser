@@ -1,0 +1,145 @@
+// size is 1194 * 834
+@font-face {
+  font-family: DancingScript;
+  src: url("assets/fonts/DancingScript.ttf");
+}
+@font-face {
+  font-family: DMSerifDisplay;
+  src: url("assets/fonts/DMSerifDisplay.ttf");
+}
+@font-face {
+  font-family: Graduate;
+  src: url("assets/fonts/Graduate.ttf");
+}
+@font-face {
+  font-family: OswaldM;
+  src: url("assets/fonts/OswaldM.ttf");
+}
+@font-face {
+  font-family: RobotoSlab;
+  src: url("assets/fonts/RobotoSlab.ttf");
+}
+
+@font-face {
+  font-family: MONOGRAMOS_left;
+  src: url("assets/fonts/MONOGRAMOS left.otf");
+}
+
+@font-face {
+  font-family: MONOGRAMOS_center;
+  src: url("assets/fonts/MONOGRAMOS center.otf");
+}
+
+@font-face {
+  font-family: MONOGRAMOS_right;
+  src: url("assets/fonts/MONOGRAMOS right.otf");
+}
+@font-face {
+  font-family: Knockout;
+  src: url("assets/fonts/Knockout.otf");
+}
+
+@font-face {
+  font-family: DUMB;
+  src: url("assets/fonts/DUMB.otf");
+}
+@font-face {
+  font-family: Rodge-Regular;
+  src: url("assets/fonts/Rodge-Regular.ttf");
+}
+@font-face {
+  font-family: Themadi;
+  src: url("assets/fonts/Themadi.otf");
+}
+@font-face {
+  font-family: Free-monogram;
+  src: url("assets/fonts/Free-monogram.otf");
+}
+@font-face {
+  font-family: Knockout;
+  src: url("assets/fonts/Knockout-HTF91-UltmtMiddlewt.otf");
+}
+// @font-face {
+//   font-family: Helvetica;
+//   src: url("assets/fonts/Helvetica Neue.otf");
+// }
+// @font-face {
+//   font-family: HelveticaUltraLight;
+//   src: url("assets/fonts/Helvetica Neue UltraLight.ttf");
+// }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+body {
+  margin: 0;
+  font-family: Knockout;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #00d8c2;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1e1e1e;
+  // background: rgba(38, 166, 208, 0.5);
+  // background: linear-gradient(to bottom, #fff, #36acd3);
+
+  // background: url("./assets/images/pg_bg2.png"), url("./assets/images/pg_bg1.png");
+  // background-size: 100% 100%;
+  // background-position: center center;
+  overflow: hidden;
+}
+.pg_bg2 {
+  height: auto;
+  width: 82%;
+  display: block;
+  margin: auto;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
+code {
+  font-family: Knockout;
+}
+.MuiInputBase-formControl {
+  color: #000 !important;
+  background: #fff;
+  // .MuiInputBase-input {
+  //     padding: 8px !important;
+  // }
+  .MuiOutlinedInput-notchedOutline {
+    border: 1px solid #fff !important;
+
+    border-radius: 0 !important;
+  }
+}
+
+.MuiMenu-paper {
+  .MuiMenuItem-root {
+    font-size: 28px;
+  }
+}
+
+.btnglobal {
+  height: 8vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  justify-content: center;
+  border: 0;
+  a {
+    height: 8vh;
+  }
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+}
