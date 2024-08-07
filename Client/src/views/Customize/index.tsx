@@ -1370,6 +1370,9 @@ const TopWrapper = styled.div`
     &.type40oz {
         left: 60px !important;
         top: 7vh !important;
+        .graphiccustomise {
+            top: 75px !important;
+        }
     }
     &.monogram {
         .canvas-container {
@@ -1447,9 +1450,7 @@ const LayoutCenterStyled = styled(LayoutCenter)`
             &.cp30oz {
                 top: 20px;
             }
-            &.cp40oz {
-                top: 20px;
-            }
+
             &.cpiceflow {
                 top: 25px !important;
                 left: 175px;
@@ -1462,7 +1463,7 @@ const LayoutCenterStyled = styled(LayoutCenter)`
             }
             &.monogram {
                 height: 150px;
-                top: 140px;
+                top: 48px;
             }
         }
 

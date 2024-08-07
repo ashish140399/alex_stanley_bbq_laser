@@ -159,17 +159,17 @@ app.post("/api/savesvg", (req, res) => {
             const log1 = "Data Inserted successfully !!";
 
             await saveData(req, res, query1, values1, log1);
-            const query2 = `UPDATE inventory_list SET used_count = used_count + 1 WHERE img_name = ? and item_name=?`;
+            const query2 = `UPDATE inventory_list SET used_count = used_count + 1 WHERE item_name  = ? and img_name=?`;
             const values2 = [parseditemname.type, parseditemname.color];
             const log2 = "Inventory used count updated";
             await saveData(req, res, query2, values2, log2);
-            if (parsedItemDetails.selectedtype === "graphic") {
-                const query3 = `UPDATE graphic_list SET graphic_used_count = graphic_used_count + 1 WHERE graphic_img_name = ?`;
-                const values3 = [parsedItemDetails.selectedgraphic];
-                const log3 = "Graphic count updated";
+            // if (parsedItemDetails.selectedtype === "graphic") {
+            //     const query3 = `UPDATE graphic_list SET graphic_used_count = graphic_used_count + 1 WHERE graphic_img_name = ?`;
+            //     const values3 = [parsedItemDetails.selectedgraphic];
+            //     const log3 = "Graphic count updated";
 
-                await saveData(req, res, query3, values3, log3);
-            }
+            //     await saveData(req, res, query3, values3, log3);
+            // }
 
             // If there was no error, you can send the success response here
             res.status(200).send("Entry updated");
@@ -180,7 +180,7 @@ app.post("/api/savesvg", (req, res) => {
 // GET route to fetch data
 app.get("/api/fetchdb", async (req, res) => {
     try {
-        const query = `SELECT u.*, i.* FROM user_data AS u INNER JOIN inventory_list AS i ON u.itemname = i.img_name`;
+        const query = `SELECT * FROM user_data`;
         const result = await executeQuery(query, []);
         res.status(200).json(result);
     } catch (error) {
@@ -188,7 +188,21 @@ app.get("/api/fetchdb", async (req, res) => {
         res.sendStatus(500);
     }
 });
-
+app.post("/api/savestatus", async (req, res) => {
+    try {
+        const data = req.body;
+        const { type, status, id } = data;
+        // type has two values status and status_text = sms text
+        const query = `UPDATE user_data SET ${type} = ? WHERE id = ?`;
+        const values = [status, id];
+        console.log("Savestatus API - saving data", data);
+        await executeQuery(query, values);
+        res.send("Status updated");
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+});
 // GET route to fetch inventory data
 app.get("/api/fetchinventory", async (req, res) => {
     const { type } = req.query;
