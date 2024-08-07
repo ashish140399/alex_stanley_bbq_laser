@@ -314,7 +314,7 @@ const Customize: React.FC<Props> = () => {
                 // graphicname: customizeInfo["graphic"].value.toString(),
                 canvasuri: modifiedSVG,
                 timeDiff: timeDifference,
-                itemdetails: JSON.stringify(itemdetails),
+                customizeInfo: JSON.stringify(customizeInfo),
             })
             .then((response) => {
                 console.log(response.data);
