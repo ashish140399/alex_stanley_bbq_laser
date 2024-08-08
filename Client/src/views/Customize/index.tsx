@@ -199,6 +199,7 @@ const Customize: React.FC<Props> = () => {
         }
     }, [designfinalised]);
     const downloadimage = async () => {
+         setShowloader(true);
         const objectarray = canvas.getObjects();
         if (customizeInfo.selected === "text") {
             await trimCanvasToText();
@@ -231,7 +232,7 @@ const Customize: React.FC<Props> = () => {
             // canvas.renderAll();
         }
         console.log("objectarray", objectarray);
-        setShowloader(true);
+       
         // var dataURLpng = canvas.toDataURL({
         //     format: "png",
         //     quality: 10,
