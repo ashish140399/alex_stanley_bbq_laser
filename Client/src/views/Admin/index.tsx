@@ -195,8 +195,7 @@ const InnerTableRow = ({ res }) => {
                 evented: false,
             });
             canvas.add(a4SizeRect);
-            const fabrictext =
-                res.userdetails?.firstName + " " + res.userdetails?.lastName;
+            const fabrictext = "#" + res.id + "- " + res.userdetails?.firstName;
             console.log(fabrictext);
             // Add text at the bottom
             const text = new fabric.Text(fabrictext, {
@@ -210,28 +209,31 @@ const InnerTableRow = ({ res }) => {
                 evented: false,
             });
             canvas.add(text);
-            // Add text at the bottom
-            const text2 = new fabric.Text(`# ${res.id}`, {
-                fontSize: 100,
-                originX: "center",
-                originY: "bottom",
-                fontFamily: "Flama-Bold",
-                top: text.top + text.height, // Adjust the vertical position of the text
-                left: widthcanvas / 2, // Center horizontally
-                selectable: false,
-                evented: false,
-            });
-            canvas.add(text2);
-            const text3 = new fabric.Text(`${res.item_name}`, {
-                fontSize: 100,
-                originX: "center",
-                originY: "bottom",
-                fontFamily: "Flama-Bold",
-                top: text2.top + text2.height, // Adjust the vertical position of the text
-                left: widthcanvas / 2, // Center horizontally
-                selectable: false,
-                evented: false,
-            });
+            // // Add text at the bottom
+            // const text2 = new fabric.Text(`# ${res.id}`, {
+            //     fontSize: 100,
+            //     originX: "center",
+            //     originY: "bottom",
+            //     fontFamily: "Flama-Bold",
+            //     top: text.top + text.height, // Adjust the vertical position of the text
+            //     left: widthcanvas / 2, // Center horizontally
+            //     selectable: false,
+            //     evented: false,
+            // });
+            // canvas.add(text2);
+            const text3 = new fabric.Text(
+                `${res.itemname.type.toUpperCase()} - ${res.itemname.color.toUpperCase()}`,
+                {
+                    fontSize: 80,
+                    originX: "center",
+                    originY: "bottom",
+                    fontFamily: "Flama-Bold",
+                    top: text.top + text.height, // Adjust the vertical position of the text
+                    left: widthcanvas / 2, // Center horizontally
+                    selectable: false,
+                    evented: false,
+                }
+            );
             canvas.add(text3);
             await fetch(res.canvasuri)
                 .then((response) => response.text())
@@ -290,15 +292,16 @@ const InnerTableRow = ({ res }) => {
             multiplier: 1, // Increase multiplier for higher resolution
         });
 
-        // Create a link element and trigger the download
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = "#" + res.id + " " + res.userdetails.firstName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Create a new HTML page containing the image
+        const htmlContent = `<html><body style="width:100%;"><img src="${dataUrl}" style="width:100%;"/></body></html>`;
+        const blob = new Blob([htmlContent], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+
+        // Open the new HTML page in a new tab
+        window.open(url, "_blank");
 
         setIsreceiptDownloading(false);
+        console.log("receipt opened in a new tab");
     };
     return res.canvasuri.endsWith(".svg") ? (
         <TableRow

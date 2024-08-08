@@ -369,7 +369,7 @@ const Customize: React.FC<Props> = () => {
         let canvasWidth, canvasHeight;
         if (customizeInfo.selected === "text") {
             canvasWidth = 60;
-            canvasHeight = 150;
+            canvasHeight = 220;
         } else if (customizeInfo.selected === "monogram") {
             canvasWidth = 150;
             canvasHeight = 150;
@@ -1469,7 +1469,7 @@ const LayoutCenterStyled = styled(LayoutCenter)`
                 height: 180px;
             }
             &.text {
-                height: 120px;
+                height: 200px;
             }
             &.monogram {
                 height: 150px;
