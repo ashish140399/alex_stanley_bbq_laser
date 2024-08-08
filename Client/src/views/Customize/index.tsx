@@ -1055,7 +1055,11 @@ const Customize: React.FC<Props> = () => {
                             <img src="images/common/logo.png" alt="" />
                         </div>
 
-                        <button className="btnglobal" onClick={downloadimage}>
+                        <button className="btnglobal" onClick={downloadimage}   style={
+                                showloader
+                                    ? { pointerEvents: "none", opacity: 0.8 }
+                                    : null
+                            }>
                             <img src="images/common/button_next.png" alt="" />
                         </button>
                     </LayoutFooter>
